@@ -1,0 +1,1941 @@
+What is PowerShell?
+
+.Net Based
+Really a scripting environment
+Essential to Windows
+
+What are Cmdlets?
+
+Like regular DOS commands
+Can also be thought of as stored procedure
+
+---------------
+
+Instalar Framework 3.5 desde PowerShell 3
+
+Lo hago desde la linea de comandos desde el ISE no actualiza
+
+No tiene los modulos desde ISE
+NOTA: Me equivoque entre la versión 64 y 86 despues ya funciona
+
+Import-module servermanager
+
+Si lo tiene instalado da un error
+
+Nota : En mi versión en la nube con est instalo 4.5
+
+add-windowsfeature as-net-framework
+
+Compruebo que esta chequeado
+
+PS C:\Users\manuel> Get-WindowsFeature
+
+Para probar desinstalo
+
+PS C:\Users\manuel> remove-windowsfeature as-net-framework
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {Application Server, .NET Framework 4.5}     
+
+
+PS C:\Users\manuel> add-windowsfeature as-net-framework
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {Application Server, .NET Framework 4.5}     
+
+
+Instalando 3.5
+
+PS C:\Users\manuel> add-windowsfeature NET-Framework-Features
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {.NET Framework 3.5 (includes .NET 2.0 and...
+
+PS C:\Users\manuel> remove-windowsfeature NET-Framework-Features
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    Yes            SuccessRest... {.NET Framework 3.5 (includes .NET 2.0 and...
+WARNING: You must restart this server to finish the removal process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TIP PowerShell requires .NET Framework v4 at a minimum, and it prefers to
+have the latest and greatest version of the framework that you can get. We recommend
+also installing at least .NET Framework v3.5 SP 1 and .NET Framework
+v4.0 to get the maximum functionality from the shell.
+
+Puedes tener instalado powershell 2 y 3 al mismo tiempo 
+
+Si quieres lanzar la versión antigua, desde run
+
+powershell.exe-version 2.0
+
+$psversiontable
+
+
+
+Ver: Linea Comandos y PowerShell ISE
+
+CLS Borrar Pantalla
+
+
+Versión PowerShell
+
+PS C:\Users\manuel> $PSVersionTable
+
+Name                           Value                                                                                 
+----                           -----                                                                                 
+PSVersion                      3.0                                                                                   
+WSManStackVersion              3.0                                                                                   
+SerializationVersion           1.1.0.1                                                                               
+CLRVersion                     4.0.30319.18051                                                                       
+BuildVersion                   6.2.9200.16628                                                                        
+PSCompatibleVersions           {1.0, 2.0, 3.0}                                                                       
+PSRemotingProtocolVersion      2.2                                                                                   
+
+
+Pantalla Adicional con comandos
+
+PS C:\Users\manuel> Show-Command
+
+Obtener Ayuda
+
+
+PS C:\Users\manuel> Get-Help
+
+TOPIC
+    Windows PowerShell Help System
+
+SHORT DESCRIPTION
+    Displays help about Windows PowerShell cmdlets and concepts. 
+
+LONG DESCRIPTION
+---
+
+
+PS C:\Users\manuel> help Get-Service
+
+NAME
+    Get-Service
+    
+SYNTAX
+    Get-Service [[-Name] <string[]>] [-ComputerName <string[]>] [-DependentServices] [-RequiredServices] [-Include 
+    <string[]>] [-Exclude <string[]>]  [<CommonParameters>]
+    
+    Get-Service -DisplayName <string[]> [-ComputerName <string[]>] [-DependentServices] [-RequiredServices] 
+    [-Include <string[]>] [-Exclude <string[]>]  [<CommonParameters>]
+    
+    Get-Service [-ComputerName <string[]>] [-DependentServices] [-RequiredServices] [-Include <string[]>] [-Exclude 
+    <string[]>] [-InputObject <ServiceController[]>]  [<CommonParameters>]
+    
+
+ALIASES
+    gsv
+    
+
+REMARKS
+    Get-Help cannot find the Help files for this cmdlet on this computer. It is displaying only partial help.
+        -- To download and install Help files for the module that includes this cmdlet, use Update-Help.
+        -- To view the Help topic for this cmdlet online, type: "Get-Help Get-Service -Online" or 
+           go to http://go.microsoft.com/fwlink/?LinkID=113332.
+
+
+Updating PowerShell’s help should be your first task. These files are stored in the
+System32 directory, which means your shell must be running under elevated privileges.
+If it doesn’t say “Administrator” in the PowerShell title bar, you’ll likely get an
+error message:
+
+Pra descargar las actualizaciones de la ayuda
+
+PS C:\> update-help
+
+Descarga Ayuda
+
+Do you have computers that aren’t connected to the internet? No problem: Go to
+one that’s connected, and use Save-Help to get a local copy of the help. Put it on a file
+server or somewhere that’s accessible to the rest of your network. Then run
+Update-Help with its -Source parameter, pointing it to the downloaded copy of the
+help. That’ll let any computer on your network grab the updated help from that central
+spot, rather than from the internet
+
+help save-help
+
+Ayuda sobre 
+
+help *network*
+help Get_netIPAddress
+help set-netipaddress -examples
+
+help *about*
+
+Help *log*
+Help *event*
+
+help about_EventLogs
+Help Get-EventLog
+
+Help Get-EventLog -example
+
+Si añades -full Ayuda mas completa
+help update-help -full
+
+Parametros posicionales con name o no
+
+get-service winrm     no hace falta poner el nombre del parametro
+
+get-service winrm -ComputerName localhost
+
+get-service winrm  localhost   ERROR!!
+
+
+Para enseñar ventana
+
+help update-help -ShowWindow
+
+Ayuda de Microsoft en Internet
+
+
+help update-help -online
+
+help get-adcomputer 
+
+help *user*
+-----
+cmdlet palabra inventada por Microsoft solo existe en PowerShell
+
+en Google puedes buscar por cmdlets 
+
+Commands
+
+Get-WmiObject -class win32_logicaldisk -ComputerName localhost -Filter "drivetype=3"
+ 
+verb Noun 3 parameters parametername value
+
+simple quotes igual double quotes
+
+get-services
+get-process
+get-eventlog necesita parametro logname security
+get-verb
+
+Nicknames Alias
+
+dir ls copy son alias
+
+get-alias ls
+get-alias
+
+Crear alias 
+
+new-alias -Name d -Value get-childitem
+d
+Desaparecen con la sesión
+
+help *alias*
+Import/export
+
+dir -Path c:\windows
+
+show-command get-service
+
+NO Run Copy luego Control-v
+
+lo mismo con show-command
+Añade localhost y s*
+
+Comandos Externos
+
+ping localhost
+ipconfig
+
+Mensajes de error
+
+$host-PrivateData.ErrorForegroundColor="Green"
+
+
+
+
+PSProvider and PSDrive: PowerShell allows different data stores to be accessed as if
+they are regular files and folders. PSProvider is similar to an adapter, which allows
+these data stores to be seen as drives.
+To get a list of the supported PSProvider objects, type:
+
+PS C:\Users\manuel> Get-PSProvider
+
+Name                 Capabilities                                     Drives                                         
+----                 ------------                                     ------                                         
+Alias                ShouldProcess                                    {Alias}                                        
+Environment          ShouldProcess                                    {Env}                                          
+FileSystem           Filter, ShouldProcess, Credentials               {C, D, A, E}                                   
+Function             ShouldProcess                                    {Function}                                     
+Registry             ShouldProcess, Transactions                      {HKLM, HKCU}                                   
+Variable             ShouldProcess                                    {Variable}                                     
+
+PS C:\Users\manuel> Get-PSDrive
+
+Name           Used (GB)     Free (GB) Provider      Root                                             CurrentLocation
+----           ---------     --------- --------      ----                                             ---------------
+A                                      FileSystem    A:\                                                             
+Alias                                  Alias                                                                         
+C                  34.22         92.78 FileSystem    C:\                                                 Users\manuel
+Cert                                   Certificate   \                                                               
+D                   1.85         68.15 FileSystem    D:\                                                             
+E                                      FileSystem    E:\                                                             
+Env                                    Environment                                                                   
+Function                               Function                                                                      
+HKCU                                   Registry      HKEY_CURRENT_USER                                               
+HKLM                                   Registry      HKEY_LOCAL_MACHINE                                              
+Variable                               Variable                                                                      
+WSMan                                  WSMan 
+
+                                                                  
+Por defecto, no puede ejecutar script
+      
+Execution policy: By default, PowerShell will abide by the current execution policy to
+determine what kind of scripts can be run. For our recipes, we are going to assume
+that you will run PowerShell as the administrator on your test environment. You will
+also need to set the execution policy to RemoteSigned:
+
+PS C:\Users\manuel> Set-ExecutionPolicy RemoteSigned
+
+Contestar Y
+
+Ver Variables gc env:computername
+
+Resultado Manuel
+
+$name=gc env:computername
+
+
+This setting will allow PowerShell to run digitally-signed scripts, or local unsigned scripts.
+
+
+Modules and snap-ins: Modules and snap-ins are ways to extend PowerShell.
+ Both modules and snap-ins can add cmdlets and providers to your current session.
+ Modules can additionally load functions, variables, aliases, and other tools to your session.
+
+Snap-ins are Dynamically Linked Libraries (DLL), and need to be registered before
+they can be used. Snap-ins are available in V1, V2, and V3. For example:
+Add-PSSnapin SqlServerCmdletSnapin100
+Modules, on the other hand, are more like your regular PowerShell .ps1 script files.
+Modules are available in V2 and V3. You do not need to register a module to use it,
+you just need to import:
+Import-Module SQLPS
+
+
+
+
+
+dir is an alias for the cmdlet Get-ChildItem
+
+
+PS C:\Users\manuel> dir
+
+
+    Directory: C:\Users\manuel
+
+
+Mode                LastWriteTime     Length Name                                                                    
+----                -------------     ------ ----                                                                    
+d-r--         8/19/2013   6:00 PM            Contacts                                                                
+d-r--         8/21/2013   9:33 AM            Desktop                                                                 
+d-r--         8/19/2013   8:23 PM            Documents                                                               
+d-r--         8/21/2013   8:53 AM            Downloads                                                               
+d-r--         8/19/2013   6:00 PM            Favorites                                                               
+d-r--         8/19/2013   6:00 PM            Links                                                                   
+d-r--         8/19/2013   6:00 PM            Music                                                                   
+d-r--         8/19/2013   6:00 PM            Pictures                                                                
+d-r--         8/19/2013   6:00 PM            Saved Games                                                             
+d-r--         8/19/2013   6:00 PM            Searches                                                                
+d-r--         8/19/2013   6:00 PM            Videos                                                                  
+
+
+
+
+ALIAS
+
+An alias is nothing more than a nickname
+for a command. Tired of typing Get-Service? Try this:
+
+PS C:\Users\manuel> get-alias -Definition "Get-Service"
+
+CommandType     Name                                               ModuleName                                        
+-----------     ----                                               ----------                                        
+Alias           gsv -> Get-Service
+
+Now you know that Gsv is an alias for Get-Service.
+
+Probamos
+
+PS C:\Users\manuel> gsv
+
+PS C:\Users\manuel> Get-Service 
+
+
+Mismo Resultado
+
+
+PS C:\Users\manuel> help gsv
+
+NAME
+    Get-Service
+    
+SYNOPSIS
+    Gets the services on a local or remote computer.
+    
+ 
+
+PS C:\Users\manuel> Get-ChildItem
+
+
+
+    Directory: C:\Users\manuel
+
+
+Mode                LastWriteTime     Length Name                                                                    
+----                -------------     ------ ----                                                                    
+d-r--         8/19/2013   6:00 PM            Contacts                                                                
+d-r--         8/21/2013   9:33 AM            Desktop                                                                 
+
+Nover por FileSystem
+
+PS SQLSERVER:\> set-location -Path hkcu:
+
+PS HKCU:\> 
+
+Usar Barra Tabuladora 
+
+PS C:\> cd '.\Program Files'
+
+Tiene IntelliSense
+
+Alias|more 
+
+Para parar
+
+   
+SYNTAX
+..............................
+.....................
+
+Usando Parámetros en un comando
+
+PS C:\Users\manuel> Get-ChildItem c:\users
+
+
+    Directory: C:\users
+
+
+Mode                LastWriteTime     Length Name                                                                    
+----                -------------     ------ ----                                                                    
+d----         8/19/2013   6:00 PM            manuel                                                                  
+d----          8/1/2013   8:57 PM            MsDtsServer110                                                          
+d----          8/1/2013   8:57 PM            MSSQLFDLauncher                                                         
+d----          8/1/2013   8:57 PM            MSSQLSERVER                                                             
+d----          8/1/2013   8:58 PM            MSSQLServerOLAPService                                                  
+d-r--          8/1/2013   1:17 PM            Public                                                                  
+d----          8/1/2013   8:57 PM            ReportServer                                                            
+
+
+
+PS C:\Users\manuel> Get-ChildItem -path c:\users
+
+
+    Directory: C:\users
+
+
+Mode                LastWriteTime     Length Name                                                                    
+----                -------------     ------ ----                                                                    
+d----         8/19/2013   6:00 PM            manuel                                                                  
+d----          8/1/2013   8:57 PM            MsDtsServer110                                                          
+d----          8/1/2013   8:57 PM            MSSQLFDLauncher                                                         
+d----          8/1/2013   8:57 PM            MSSQLSERVER                                                             
+d----          8/1/2013   8:58 PM            MSSQLServerOLAPService                                                  
+d-r--          8/1/2013   1:17 PM            Public                                                                  
+d----          8/1/2013   8:57 PM            ReportServer                                                            
+
+
+For instance, recall how earlier in this article I told you that the Get-ChildItem cmdlet is analogous in functionality to the Windows dir command? Well, as it happens, you can use dir all day long to retrieve directory listings in PowerShell. Are you a Mac or a NIX scripter? No problem—try using ls. It works!
+
+In PowerShell, an alias is nothing more than a persistent mapping of a system- or user-defined shortcut to a known PowerShell cmdlet.
+
+
+To obtain a full list of built-in aliases, simply invoke the cmdlet Get-Alias from your PowerShell environment.
+
+Notice in the above exhibit that when you type cls to clear the screen, PowerShell actually invokes the Clear-Host cmdlet. You can define your own aliases as well by using the Set-Alias cmdlet. The kernel idea here is that over time you can develop a completely tricked-out, personalized scripting environment that is tuned to your intuitive workflow and command preferences.
+
+
+-A cmdlet is a native PowerShell command-line utility. These exist only inside of
+PowerShell and are written in a .NET Framework language like C#. The word
+“cmdlet” is unique to PowerShell, so if you add it to your search keywords on
+Google or Bing, the results you get back will be mainly PowerShell-related. The
+word is pronounced “command-let.”
+-A function can be similar to a cmdlet, but rather than being written in a .NET
+language, functions are written in PowerShell’s own scripting language.
+-A workflow is a special kind of function that ties into PowerShell’s workflow execution
+system.
+-An application is any kind of external executable, including command-line utilities
+like Ping, Ipconfig, and so forth.
+-Command is the generic term that we use to refer to any or all of the preceding
+terms.
+
+
+
+Drives
+
+As I previously mentioned, Windows PowerShell is built atop the .NET Framework. With PowerShell you can reach literally any aspect of local and/or remote computers, including the file system, the Registry, Windows Management Instrumentation (WMI) values, and the Active Directory Services Interface (ADSI).
+
+According to Microsoft, a Windows PowerShell drive is a logical data store location that maps a logical name within PowerShell to a “real, live” data provider. Those data store locations can be:
+
+Local or remote filesystems
+Digital certificates
+Environment variables
+Registry keys and/or values
+You can invoke the PowerShell cmdlet Get-PSDrive to obtain a list of currently loaded PowerShell drives on the local system. If you want to create a new PowerShell drive, then use the New-PSDrive cmdlet. The following exhibit demonstrates how we can define a virtual drive that maps to a remote file share.
+
+
+
+What is a PowerShell script?
+
+A Windows PowerShell script file is nothing more than a plain text file that (a) has the .ps1 file extension; and (b) contains one or more lines of PowerShell source code.
+
+Like VBScript, Python, and most other so-called “scripting languages,” your code is not compiled at run-time but is rather interpreted, line-by-line, by the PowerShell interpreter.
+
+Running a PowerShell script
+
+Before we learn how to run a PowerShell script from outside the ISE, we need to explain PowerShell execution policy, formally defined as Code Access Security.
+
+By default, Windows PowerShell runs in the Restricted execution policy, which means that Windows PowerShell can be used only in interactive mode from a PowerShell prompt or from an ISE. This prohibition of PowerShell scripts from running “free” on a host system was done by design and obviously for security purposes.
+
+The other three PowerShell execution policies are:
+
+AllSigned: Only scripts that are digitally signed by a trusted publisher are allowed to run
+RemoteSigned: Locally created scripts can run fine; downloaded scripts must be digitally signed by a trusted publisher in order to run
+Unrestricted: All PowerShell scripts can run without restriction (not recommended for most environments)
+To change the PowerShell script execution policy on a system, open an elevated command prompt, start PowerShell by typing powershell, and then invoke the Set-ExecutionPolicy cmdlet. To verify the current 
+execution policy, run Get-ExecutionPolicy.
+
+Now for the good stuff. To run a PowerShell script from an elevated command prompt, perform one of the following actions:
+
+.\<script>.ps1 (You can use this form if your OS prompt is already focused in the local directory that contains the target PowerShell script file)
+C:\Scripts\<script.ps1> (Here we specify the fully qualified filename of the target PowerShell script)
+As long as Windows is properly configured to associate the .ps1 extension with Windows PowerShell, the inclusion of the file extension in your scripts is optional.
+
+If, by contrast, you are already within PowerShell, you can employ the Invoke-Expression cmdlet to run the script. To wit:
+
+PS> Invoke-Expression “C:\Scripts\<script>.ps1”
+
+NOTE: The use of quotation marks is required only if your directory path includes spaces. Be aware, also, that by default you must always fully qualify the location of the script file even if your present working directory is the same location as the target script.
+
+Finally, you can use the ampersand (&) shortcut to run a script from within PowerShell. That is to say:
+
+PS>& “C:\Scripts\<script>.ps1”
+
+
+http://4sysops.com/archives/powershell-operators/
+
+
+
+
+
+
+Cmdlets always consist of a verb-noun compound phrase separated by a hyphen; this is done by design in order to make remembering PowerShell commands easy and intuitive. In the previous example, Get-ChildItem, the Get (verb) part of the command directs the action; in this case, to retrieve data. The ChildItem (noun) part of the command provides the focus for the verb; in the example, to obtain a directory listing.
+
+NOTE: Cmdlets are completely case IN-sensitive. Therefore, the statements get-childitem, Get-ChildItem, and GET-CHILDITEM are all equivalent in practice.
+
+In case you haven’t picked this up from context, an argument is nothing more than a value that is passed to a parameter. In the current example, the Get-ChildItem cmdlet, which functions identically to the old DOS dir command, requires that you pass an argument (namely, the filespec for which you need a directory listing) to the cmdlet. In this case, -path is a positional parameter and can safely be omitted; thus, the statements Get-ChildItem –path C:\Tools and Get-ChildItem C:\Tools are synonymous.
+
+The Pipeline
+
+One of the most powerful aspects of Windows PowerShell (besides the fact that its command set has its roots in the all-pervasive .NET Framework, that is), is what is called the pipeline. Those of you who are already masters of *NIX shell scripting are already familiar with the pipeline, but for us Windows administrators, give a listen.
+
+In PowerShell, piping refers to the process of passing the results of one cmdlet as an argument into a second cmdlet. Therefore, the pipeline enables us to create compound cmdlet sequences that perform multiple tasks in a single operation. Take a look at the following example:
+
+In the previous example, we “chain” together three PowerShell cmdlets by using the pipe (|) character. The net result in this case is that we receive a nifty, formatted list of our Windows services, organized by their run status. 
+
+For example, this is a bit difficult to read and interpret:
+PS C:\> move file.txt users\donjones\
+This version, which uses parameter names, is easier to follow:
+PS C:\> move -Path c:\file.txt -Destination \users\donjones\
+This version, which puts the parameters in a different order, is allowed when you use
+the parameter names:
+PS C:\> move -Destination \users\donjones\ -Path c:\file.txt
+We tend to recommend against using positional (that is, unnamed) parameters unless
+you’re banging out something quick and dirty at the command line. In anything that
+will persist, like a batch file or a blog post, include all of the parameter names. We try
+to do that as much as possible in this book, except in a few instances where we have to
+shorten the command line to make it fit within the printed pages
+
+
+
+Show-Command uses a graphical prompt to complete command parameters.
+
+PS C:\Users\manuel> Show-Command Get-EventLog
+
+When you’re done, you can either click Run to run the command or—and we like
+this option better—click Copy to put the completed command on the clipboard. Back
+in the shell, paste the command (right-click in the console, or Ctrl-V in the ISE) to
+look at it
+
+Support for external commands
+
+So far, all of the commands you’ve run in the shell (at least, the ones we’ve suggested
+that you run) have been built-in cmdlets. Almost 400 of those cmdlets come built into
+the latest version of the Windows client operating system, thousands into the server
+operating system, and you can add more—products like Exchange Server, SharePoint
+Server, and SQL Server all come with add-ins that each includes hundreds of additional
+cmdlets.
+But you’re not limited to the cmdlets that come with PowerShell—you can also use
+the same external command-line utilities that you have probably been using for years,
+including Ping, Nslookup, Ipconfig, Net, and so forth. Because these aren’t native
+PowerShell cmdlets, you use them the same way that you always have. PowerShell will
+launch Cmd.exe behind the scenes, because it knows how to run those external commands,
+and any results will be displayed within the PowerShell window. Go ahead and
+try a few old favorites right now. We’re often asked how you can use PowerShell to
+map a regular network drive—one that can be seen from within Explorer. We always
+use Net Use, and it works fine within PowerShell
+
+PS C:\Users\manuel> ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet 3:
+
+   Connection-specific DNS Suffix  . : a51dc16f87e64bb485cb74ef03104059.W2012SQL2012.2046350241.asiasoutheast.interna
+l.cloudapp.net
+   Link-local IPv6 Address . . . . . : fe80::15b3:dbcc:6bba:a819%14
+   IPv4 Address. . . . . . . . . . . : 10.78.74.43
+   Subnet Mask . . . . . . . . . . . : 255.255.254.0
+   Default Gateway . . . . . . . . . : 10.78.74.1
+
+Tunnel adapter isatap.a51dc16f87e64bb485cb74ef03104059.W2012SQL2012.2046350241.asiasoutheast.internal.cloudapp.net:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : a51dc16f87e64bb485cb74ef03104059.W2012SQL2012.2046350241.asiasoutheast.interna
+l.cloudapp.net
+
+The anatomy of a command
+
+PS C:\Users\manuel> Get-EventLog -LogName Security -ComputerName W2012SQL2012 -Verbose
+		                 Parameter Parameter        			Switch Parameter(novalue)
+				   name     value
+PS C:\Users\manuel> Get-EventLog -LogName Security -ComputerName W2012SQL2012 -Verbose
+
+   Index Time          EntryType   Source                 InstanceID Message                                                                                   
+   ----- ----          ---------   ------                 ---------- -------                                                                                   
+    3406 Aug 23 08:55  SuccessA... Microsoft-Windows...         4672 Special privileges assigned to new logon....                                              
+    3405 Aug 23 08:55  SuccessA... Microsoft-Windows...         4624 An account was successfully logged on....                                                 
+    3404 Aug 23 08:45  SuccessA... Microsoft-Windows...         4672 Special privileges assigned to new logon....                                              
+    3403 Aug 23 08:45  SuccessA... Microsoft-Windows...         4624 An account was successfully logged on....         
+
+
+
+
+
+
+A PowerShell provider, or PSProvider, is an adapter. It’s designed to take some kind
+of data storage and make it look like a disk drive. You can see a list of installed providers
+right within the shell:
+
+PS C:\Users\manuel> Get-PSProvider
+
+Name                 Capabilities                                                          Drives                                                              
+----                 ------------                                                          ------                                                              
+Alias                ShouldProcess                                                         {Alias}                                                             
+Environment          ShouldProcess                                                         {Env}                                                               
+FileSystem           Filter, ShouldProcess, Credentials                                    {C, D, A, E}                                                        
+Function             ShouldProcess                                                         {Function}                                                          
+Registry             ShouldProcess, Transactions                                           {HKLM, HKCU}                                                        
+Variable             ShouldProcess                                                         {Variable}                                                          
+
+Providers can also be added into the shell, typically along with a module or snap-in,
+which are the two ways that PowerShell can be extended. (We’ll cover those extensions
+in chapter 7.) Sometimes, enabling certain PowerShell features may create a
+new PSProvider. For example, when you enable Remoting (which we’ll be discussing
+in chapter 13), you’ll get an extra PSProvider, as you can see here:
+Name Capabilities Drives
+PS C:\> Get-PSProvider
+Name Capabilities Drives
+---- ------------ ------
+Alias ShouldProcess {Alias}
+Environment ShouldProcess {Env}
+FileSystem Filter, ShouldProcess, Credentials {C, A, D}
+Function ShouldProcess {Function}
+Registry ShouldProcess, Transactions {HKLM, HKCU}
+Variable ShouldProcess {Variable}
+WSMan Credentials {WSMan}
+
+
+
+USING PSDRIVE
+
+psdrive
+
+List of Drives in my Server
+
+c:
+
+cd hkcu:
+
+dir
+
+cd software
+
+dir | gm
+
+gm is get members
+
+dir | %{$_.flush()}
+
+No ejecutes da escape
+
+
+
+
+
+
+
+
+
+You use a provider to create a PSDrive. A PSDrive uses a single provider to connect to
+some actual data storage. You’re essentially creating a drive mapping, much like you
+might have in Windows Explorer, but a PSDrive, thanks to the providers, is able to
+connect to much more than disks. Run the following command to see a list of currently
+connected drives:
+
+PS C:\Users\manuel> Get-PSDrive
+
+Name           Used (GB)     Free (GB) Provider      Root                                                                                       CurrentLocation
+----           ---------     --------- --------      ----                                                                                       ---------------
+A                                      FileSystem    A:\                                                                                                       
+Alias                                  Alias                                                                                                                   
+C                  34.58         92.42 FileSystem    C:\                                                                                           Users\manuel
+Cert                                   Certificate   \                                                                                                         
+D                   1.85         68.15 FileSystem    D:\                                                                                                       
+E                                      FileSystem    E:\                                                                                                       
+Env                                    Environment                                                                                                             
+Function                               Function                                                                                                                
+HKCU                                   Registry      HKEY_CURRENT_USER                                                                                         
+HKLM                                   Registry      HKEY_LOCAL_MACHINE                                                                                        
+Variable                               Variable                                                                                                                
+WSMan                                  WSMan                         
+
+In the preceding list, you can see that we have three drives using the FileSystem provider,
+two using the Registry provider, and so forth. The PSProvider adapts the data
+store, the PSDrive makes it accessible, and you use a set of cmdlets to see and manipulate
+the data exposed by each PSDrive. For the most part, the cmdlets you use with a
+PSDrive have the word “Item” somewhere in their noun:
+
+PS C:\Users\manuel> get-command -noun *item*
+
+CommandType     Name                                               ModuleName                                                                                  
+-----------     ----                                               ----------                                                                                  
+Function        Get-DAEntryPointTableItem                          DirectAccessClientComponents                                                                
+Function        New-DAEntryPointTableItem                          DirectAccessClientComponents                                                                
+Function        Remove-DAEntryPointTableItem                       DirectAccessClientComponents                                                                
+Function        Rename-DAEntryPointTableItem                       DirectAccessClientComponents                                                                
+Function        Reset-DAEntryPointTableItem                        DirectAccessClientComponents                                                                
+Function        Set-DAEntryPointTableItem                          DirectAccessClientComponents                                                                
+Cmdlet          Clear-Item                                         Microsoft.PowerShell.Management                                                             
+Cmdlet          Clear-ItemProperty                                 Microsoft.PowerShell.Management                                                             
+Cmdlet          Copy-Item                                          Microsoft.PowerShell.Management                                                             
+Cmdlet          Copy-ItemProperty                                  Microsoft.PowerShell.Management                                                             
+Cmdlet          Get-ChildItem                                      Microsoft.PowerShell.Management                                                             
+Cmdlet          Get-ControlPanelItem                               Microsoft.PowerShell.Management                                                             
+Cmdlet          Get-Item                                           Microsoft.PowerShell.Management                                                             
+Cmdlet          Get-ItemProperty                                   Microsoft.PowerShell.Management                                                             
+Cmdlet          Invoke-Item                                        Microsoft.PowerShell.Management                                                             
+Cmdlet          Move-Item                                          Microsoft.PowerShell.Management                                                             
+Cmdlet          Move-ItemProperty                                  Microsoft.PowerShell.Management                                                             
+Cmdlet          New-Item                                           Microsoft.PowerShell.Management                                                             
+Cmdlet          New-ItemProperty                                   Microsoft.PowerShell.Management                                                             
+Cmdlet          Remove-Item                                        Microsoft.PowerShell.Management                                                             
+Cmdlet          Remove-ItemProperty                                Microsoft.PowerShell.Management                                                             
+Cmdlet          Rename-Item                                        Microsoft.PowerShell.Management                                                             
+Cmdlet          Rename-ItemProperty                                Microsoft.PowerShell.Management                                                             
+Cmdlet          Set-Item                                           Microsoft.PowerShell.Management                                                             
+Cmdlet          Set-ItemProperty                                   Microsoft.PowerShell.Management                                                             
+Cmdlet          Show-ControlPanelItem                              Microsoft.PowerShell.Management                                                             
+
+The Windows filesystem is organized around three main types of objects: drives, folders,
+and files. Drives, the top-level objects, contain both folders and files. Folders are
+also a kind of container, capable of containing both files and other folders. Files aren’t
+a type of container; they’re more of an endpoint object.
+
+PowerShell’s terminology differs somewhat from that of the filesystem. Because a
+PSDrive might not point to a filesystem—for example, a PSDrive can be mapped to
+the registry, which is obviously not a filesystem—PowerShell doesn’t use the terms
+“file” and “folder.” Instead, it refers to these objects by the more generic term item.
+Both a file and a folder are considered items, although they’re obviously different
+
+Navigating the filesystem
+
+Another cmdlet you’ll need to know when working with providers is Set-Location.
+It’s what you use to change the shell’s current location to a different container-type
+item, such as a folder:
+PS C:\> Set-Location -Path C:\Windows
+PS C:\Windows>
+You’re probably more familiar with this command’s alias, Cd, which corresponds to
+the “change directory” command from Cmd.exe:
+PS C:\Windows> cd 'C:\Program Files'
+PS C:\Program Files>
+
+Here we’ve used the alias and passed the desired path as a positional parameter.
+One of the trickier tasks in PowerShell is creating new items. For example, how do
+you create a new directory? Try running New-Item and you’ll get an unexpected
+prompt:
+PS C:\users\donjones\Documents> new-item testFolder
+
+
+Remember, the New-Item cmdlet is generic—it doesn’t know you want to create a
+folder. It can create folders, files, registry keys, and much more, but you have to tell it
+what type of item you want to create:
+PS C:\users\donjones\Documents> new-item testFolder
+
+
+The pipeline: connecting commands
+
+
+Pipeline
+
+Ejecutar como Administrador
+
+PS C:\Windows\system32> get-process | out-file c:\procesos.txt
+
+PS C:\Windows\system32> notepad c:\procesos.txt
+
+
+
+get-service | gm 
+
+get-service | ft Name, MachineName, CanStop -auto
+
+Ejemplo Pipeline
+
+ get-service | ?{$_.Name -eq "Dhcp"}
+
+
+
+get-service | ?{$_.Name -eq "SQLWriter"}
+
+
+
+
+? es where Curly Brackets
+?{$_.Name is a Loop
+
+
+
+PS C:\Windows\system32> get-service | ?{$_.Name -eq "wuauserv"}
+
+Status   Name               DisplayName                           
+------   ----               -----------                           
+Stopped  wuauserv           Windows Update                        
+
+PS C:\Windows\system32> get-service | ?{$_.Name -eq "wuauserv"} | %{$_.Start()}
+
+PS C:\Windows\system32> get-service | ?{$_.Name -eq "wuauserv"}
+
+Status   Name               DisplayName                           
+------   ----               -----------                           
+Running  wuauserv           Windows Update                        
+
+
+PS C:\Windows\system32> get-service | ?{$_.Name -eq "wuauserv"} | %{$_.Stop()}
+
+PS C:\Windows\system32> get-service | ?{$_.Name -eq "wuauserv"}
+
+Status   Name               DisplayName                           
+------   ----               -----------                           
+Stopped  wuauserv           Windows Update
+
+
+Tambien
+
+Get-Service | Stop-Service -confirm
+
+Aparece pantalla pidiendo confirmación
+
+Ejemplo usar metodo
+
+get-service | ?{$_.Name -eq "SQLWriter"} | %{$_.Stop()}
+
+
+
+% is for each
+
+Recuerda. Ejecutar como Administrador
+
+Da un error sino Start
+
+
+get-service | ?{$_.Name -eq "Dhcp"} | %{$_.Start()}
+
+get-service | ?{$_.Name -eq "SQLWriter"} | %{$_.Start()}
+
+
+Comprobar
+
+get-service | ?{$_.Name -eq "SQLWriter"}
+
+
+
+PowerShell connects commands to each other using something called a pipeline.
+The pipeline provides a way for one command to pass, or pipe, its output to another
+command, allowing that second command to have something to work with.
+
+PS C:\Users\manuel> Dir | More
+
+
+    Directory: C:\Users\manuel
+
+
+Mode                LastWriteTime     Length Name                                                                                                              
+----                -------------     ------ ----                                                                                                              
+d-r--         8/19/2013   6:00 PM            Contacts                                                                                                          
+d-r--         8/22/2013   8:54 AM            Desktop                                                                                                           
+d-r--         8/21/2013   2:03 PM            Documents                                                                                                         
+d-r--         8/21/2013   1:46 PM            Downloads                                                                                                         
+d-r--         8/19/2013   6:00 PM            Favorites                                                                                                         
+d-r--         8/19/2013   6:00 PM            Links                                                                                                             
+d-r--         8/19/2013   6:00 PM            Music                                                                                                             
+d-r--         8/19/2013   6:00 PM            Pictures                                                                                                          
+d-r--         8/19/2013   6:00 PM            Saved Games                                                                                                       
+d-r--         8/19/2013   6:00 PM            Searches                                                                                                          
+d-r--         8/19/2013   6:00 PM            Videos  
+
+Ejemplos
+
+Exporting to a file is where the pipeline and a second command come in handy:
+
+Get-Process | Export-CSV procs.csv
+
+notepad .\procs.csv
+
+Otro Ejemplo
+
+PS C:\Users\Administrator> Get-EventLog –LogName System |
+Export-Csv c:\IISErrors.csv
+
+PS C:\Users\Administrator> notepad c:\IISErrors.csv
+
+Get-Service | ConvertTo-HTML
+
+Formato HTML
+
+
+PowerShell has a variety of Out- cmdlets. One is called Out-Default, and it’s the one
+the shell uses when you don’t specify a different Out- cmdlet. If you run this,
+Dir
+you’re technically running this,
+
+Dir | Out-Default
+
+Dir | Out-File DirectoryList.txt
+
+Dir | Out-Default | Out-Host
+Out-Host displays information on the screen
+
+Want to produce HTML reports? Easy: pipe your command to ConvertTo-HTML. This
+command produces well-formed, generic HTML that will display in any web browser.
+It’s plain looking, but you can reference a Cascading Style Sheet (CSS) to specify more
+attractive formatting if desired. Notice that this command doesn’t require a filename:
+
+Get-Service | ConvertTo-HTML
+
+Using cmdlets that modify the system: killing processes and stopping services
+
+Exporting and converting aren’t the only reasons you might want to connect two commands
+together. For example, consider—but please do not run—this command:
+Get-Process | Stop-Process
+Can you imagine what that command would do? We’ll tell you: crash your computer.
+It would retrieve every process and then start trying to end each one of them. It would
+get to a critical process, like the Local Security Authority, and your computer would
+probably crash with the famous Blue Screen of Death (BSOD). If you’re running
+PowerShell inside of a virtual machine and want to have a little fun, go ahead and try
+running that command.
+The point is that cmdlets with the same noun (in this case, Process) can often pass
+information among each other. Typically, you’d specify the name of a specific process
+rather than trying to stop them all:
+
+Get-Process -name Notepad | Stop-Process
+
+Can force the shell to ask you whether you’re sure:
+
+Get-Service | Stop-Service -confirm
+
+Adding commands
+
+One of PowerShell’s primary strengths is its extensibility. As Microsoft continues to
+invest in PowerShell, it develops more and more commands for products like
+Exchange Server, SharePoint Server, the System Center family, SQL Server, and so
+on. Typically, when you install these products’ management tools, you also get a
+graphical management console of some kind and one or more extensions for Windows
+PowerShell.
+
+These product-specific management shells have been a huge source of confusion. We
+want to clearly state that there is only one Windows PowerShell. There isn’t a separate
+PowerShell for Exchange and Active Directory; it’s all a single shell.
+Let’s take Active Directory as an example. On the Start menu of a Windows Server
+2008 R2 domain controller, under Administrative Tools, you’ll find an icon for the
+Active Directory Module for Windows PowerShell. If you right-click that item and
+select Properties from the context menu, the first thing you should see is the Target
+field, which will be this:
+%windir%\system32\WindowsPowerShell\v1.0\powershell.exe -noexit -command import-module ActiveDirectory
+This command runs the standard PowerShell.exe application and gives it a commandline
+parameter to run a specific command: Import-Module ActiveDirectory. The
+result is a copy of the shell that has the ActiveDirectory module preloaded. But we can
+think of no reason why you couldn’t open the “normal” PowerShell and run that same
+command yourself to get the same functionality.
+The same holds true for almost every product-specific “management shell” you’ll
+find: Exchange, SharePoint, you name it. Examine the properties of those products’
+Start menu shortcuts, and you’ll find that they open the normal PowerShell.exe and
+pass a command-line parameter to either import a module, add a snap-in, or load a
+preconfigured console file (and the console file is simply a list of snap-ins to load
+automatically).
+SQL Server 2008 and SQL Server 2008 R2 are exceptions. Their “product-specific”
+shell, Sqlps, is a specially compiled version of PowerShell that runs only the SQL
+Server extensions. Properly called a mini-shell, Microsoft tried this approach for the
+first time in SQL Server. It has been unpopular, and the company won’t be using that
+approach again: SQL Server 2012 uses PowerShell.
+-----------------
+
+SCRIPT
+
+Running the Script
+
+To run a script, you must navigate to the folder containing the script and then enter ./ followed by the name of the script. However, Windows disables the use of scripts by default. If you look at figure 3, you can see an error message indicating that I am not allowed to run scripts on this system. Windows disables scripts to prevent scripting attacks.
+
+Get-Help About_Signing
+
+In order to run scripts, you will have to change the server's execution policy. There are four execution policies to choose from including:
+
+Restricted -- Scripts are not allowed to run.
+AllSigned -- Scripts signed by a trusted publisher are allowed to run.
+RemoteSigned -- Scripts from the Internet must be signed by a trusted publisher. Scripts created locally are allowed to run.
+Unrestricted -- All scripts are allowed to run.
+
+To change the execution policy, open a PowerShell window with elevated privileges and enter the Set-ExecutionPolicy command, followed by the execution level.
+
+E.g.
+
+Get-ExecutionPolicy
+
+PS C:\Users\Administrator> Set-ExecutionPolicy Unrestricted
+
+
+Creamos Script
+
+cd env:
+dir
+cd C:\Users\Administrator
+
+Guardamos como Listar_Variables_Entorno.ps1
+
+
+PS C:\Users\Administrator> Set-ExecutionPolicy Unrestricted
+
+PS C:\Users\Administrator> .\Documents\Listar_Variables_Entorno.ps1
+
+Name                           Value                                                                                 
+----                           -----                                                                                 
+ALLUSERSPROFILE                C:\ProgramData                                                                        
+APPDATA                        C:\Users\Administrator\AppData\Roaming                                                
+CLIENTNAME                     COMPAQ                                                                                
+CommonProgramFiles             C:\Program Files\Common Files                                                         
+CommonProgramFiles(x86)        C:\Program Files (x86)\Common Files                                                   
+CommonProgramW6432             C:\Program Files\Common Files                                                         
+COMPUTERNAME                   W2014                                                                                 
+ComSpec                        C:\Windows\system32\cmd.exe                                                           
+FP_NO_HOST_CHECK               NO                                                                                    
+HOMEDRIVE                      C:                                                                                    
+HOMEPATH                       \Users\Administrator                                                                  
+LOCALAPPDATA                   C:\Users\Administrator\AppData\Local                                                  
+LOGONSERVER                    \\W2014                                                                               
+NUMBER_OF_PROCESSORS           1                                                                                     
+OS                             Windows_NT                                                                            
+Path                           C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\Windows...
+PATHEXT                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL                            
+PROCESSOR_ARCHITECTURE         AMD64                                                                                 
+PROCESSOR_IDENTIFIER           AMD64 Family 16 Model 8 Stepping 1, AuthenticAMD                                      
+PROCESSOR_LEVEL                16                                                                                    
+PROCESSOR_REVISION             0801                                                                                  
+ProgramData                    C:\ProgramData                                                                        
+ProgramFiles                   C:\Program Files                                                                      
+ProgramFiles(x86)              C:\Program Files (x86)                                                                
+ProgramW6432                   C:\Program Files                                                                      
+PSModulePath                   C:\Users\Administrator\Documents\WindowsPowerShell\Modules;C:\Windows\system32\Wind...
+PUBLIC                         C:\Users\Public                                                                       
+SESSIONNAME                    RDP-Tcp#0                                                                             
+SystemDrive                    C:                                                                                    
+SystemRoot                     C:\Windows                                                                            
+TEMP                           C:\Users\ADMINI~1\AppData\Local\Temp\2                                                
+TMP                            C:\Users\ADMINI~1\AppData\Local\Temp\2                                                
+USERDOMAIN                     W2014                                                                                 
+USERDOMAIN_ROAMINGPROFILE      W2014                                                                                 
+USERNAME                       manuel                                                                                
+USERPROFILE                    C:\Users\Administrator                                                                
+windir                         C:\Windows                                                                            
+
+PS C:\Users\Administrator> 
+
+
+To show you how this works, let's pretend that we have a need to periodically make sure that all of the RPC services are running. We could accomplish this through the following line of code:
+
+Now let's pretend that we want to automatically start any of the services that aren't running and then verify that the various services are running. The code required for doing so would look like this:
+
+
+
+Get-Service RPC* | Sort-Object status
+Get-Service RPC* | Where-Object {$_.Status –eq "Stopped"}  | Start-Service
+Get-Service RPC* | Sort-Object status
+
+
+Otro
+
+http://www.howtogeek.com/141495/geek-school-writing-your-first-full-powershell-script/
+
+Get-WmiObject -Class Win32_OperatingSystem –ComputerName localhost |
+Select-Object -Property CSName,LastBootUpTime
+
+PS C:\Users\Administrator> .\Documents\InformacionSistema.ps1
+
+CSName                                                     LastBootUpTime                                            
+------                                                     --------------                                            
+W2014                                                      20131021095600.626966+000                                 
+
+La fecha má organizada
+
+PS C:\Users\Administrator> .\Documents\UltimoArranque.ps1
+
+CSName                                                     Ultimo Arranque                                           
+------                                                     ---------------                                           
+W2014                                                      10/21/2013 9:56:00 AM                                     
+
+Our script is working as expected, however there is still one problem with our script. We hardcoded the name of the computer we want to get the last boot time for. Instead of hardcoding values, we should rather provide a parameter so that whoever is using the script can choose which computer they run the script against. To do that, go to the top of your script and do the following.
+
+Dando nombre equipo como parametro reemplazable
+
+PS C:\Users\Administrator> .\Documents\UltimoArranqueParametro.ps1 localhost
+
+CSName                                                     Ultimo Arranque                                           
+------                                                     ---------------                                           
+W2014                                                      10/21/2013 9:56:00 AM                                     
+
+
+
+
+Otro Script más completo
+
+
+<#
+.SYNOPSIS
+Get-DiskInventory retrieves logical disk information from one or
+more computers.
+.DESCRIPTION
+Get-DiskInventory uses WMI to retrieve the Win32_LogicalDisk
+instances from one or more computers. It displays each disk's
+drive letter, free space, total size, and percentage of free
+space.
+.PARAMETER computername
+The computer name, or names, to query. Default: Localhost.
+.PARAMETER drivetype
+The drive type to query. See Win32_LogicalDisk documentation
+for values. 3 is a fixed disk, and is the default..EXAMPLE
+Get-DiskInventory -computername SERVER-R2 -drivetype 3
+#>
+param (
+$computername = 'localhost',
+$drivetype = 3
+)
+Get-WmiObject -class Win32_LogicalDisk -computername $computername `
+-filter "drivetype=$drivetype" |
+Sort-Object -property DeviceID |
+Format-Table -property DeviceID,
+@{label='FreeSpace(MB)';expression={$_.FreeSpace / 1MB -as [int]}},
+@{label='Size(GB';expression={$_.Size / 1GB -as [int]}},
+@{label='%Free';expression={$_.FreeSpace / $_.Size * 100 -as [int]}}
+
+PS C:\Users\Administrator> .\Documents\RecuperarInformación.ps1
+
+DeviceID                                      FreeSpace(MB)                      Size(GB                        %Free
+--------                                      -------------                      -------                        -----
+C:                                                   104513                          127                           80
+D:                                                    70879                           70                           99
+
+
+
+
+-----------------------
+PowerShell e IIS
+
+
+
+To use any of the Server Manager features in PowerShell, you must fi rst import the ServerManager
+module. To do this, open a PowerShell command prompt and enter:
+
+
+Getting a list of IIS components
+
+PS> Import-Module ServerManager #only required for PowerShell v2
+PS> Get-WindowsFeature –Name *web*
+
+Installing IIS
+
+IMPORTANTE:
+
+Gotcha: In Windows Server 2012 the GUI management console isn’t installed by default
+when you use PowerShell. Add the management console component using the
+
+Install-WindowsFeature Web-Mgmt-Console
+
+
+Importante
+
+ PS C:\Users\Administrator>  Install-WindowsFeature –Name Web-Server –IncludeManagementTools
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {Common HTTP Features, Default Document, D...
+
+De este modo si que vemos el Administrador
+
+http://letitknow.wordpress.com/2012/10/22/install-iis-or-any-role-and-feature-on-windows-server-2012-with-powershell/
+
+
+PS> Add-WindowsFeature Web-Server -IncludeAllSubFeature
+
+
+PS> Add-WindowsFeature Web-Server
+
+Testing a default installation
+
+PS> Start iexplore http://<ServerName>
+
+Importing and viewing cmdlets for IIS
+
+PS> Import-Module WebAdministration
+PS> Get-Command –Module WebAdministration
+PS> Get-Command –noun web*
+PS> Get-Help *web*
+
+Viewing a website
+
+PS> Get-WebSite –Name Default*
+PS> Get-Childitem –Path iis:\sites
+PS> Get-Childitem –Path c:\inetPub\wwwroot
+
+
+
+PS> import-module ServerManager
+
+Ya esta cargado
+
+Installing IIS 8.0 from a PowerShell command is as easy as adding the Web Server feature to
+Windows. From a PowerShell command, simply run:
+
+PS> Add-WindowsFeature Web-Server,web-management-console
+This will install IIS 8.0 exactly like the default installation done through Server Manager. In other
+words, you will only be able to serve static HTML fi les, not much use for most organizations.
+Fortunately, the same command can be extended to add the features you need. For example, to run
+most ASP.NET applications, the command would look like the following:
+
+PS> Add-WindowsFeature web-server,web-asp-net,web-management-console
+
+Simply separate the features in a comma-delimited list. You could throw caution to the wind
+and install all features, which would be against security policy for most organizations, with the
+command:
+
+PS> Add-WindowsFeature Web-Server -IncludeAllSubFeature
+
+
+Because PowerShell commands can be scripted, you can create a script to deploy a default IIS 8.0
+confi guration, including needed features as well as default confi gurations. Your script might look
+something like this:
+
+
+import-module ServerManager
+Add-WindowsFeature web-server,web-asp-net
+copy-item -Path c:\DefaultWebFiles\*.* -Destination \c$\inetpub\wwwroot
+
+
+Save this script to a file named IISInstall.ps1; place your default web fi les, such as Hello.aspx,
+in the DefaultWebFiles folder; and you’re ready to install IIS 8.0 at any time. The paths for installation
+will need to exist; you can create them using a PowerShell script. Naturally, you’ll want to
+change these paths for deployment to multiple servers and use PowerShell remoting for remote
+installs. You will also likely wish to set other confi gurations and features through your script.
+By default, PowerShell has scripting disabled. If you receive an error to this effect when running
+a script, you will need to enable scripting on the system. To do this, open a PowerShell command
+prompt, using Run As Administrator, and enter the following command:
+
+
+Set-ExecutionPolicy unrestricted
+
+
+This will allow the execution of PowerShell scripts on the system. Note that this may also open
+security more than some organizations are comfortable with.
+
+
+
+You can also migrate sites with PowerShell, using a web confi guration backup and restore. You will
+need to add the PowerShell snap-in to your IIS 7.0 server for this, as well as install PowerShell on
+your Windows Server 2012 system. First, create a backup of your web confi guration with the following
+PowerShell command:
+PS> Backup-WebConfiguration -Name IISConfigBackup
+This will create a subfolder in the \system32\inetsrv\backup folder with your confi guration fi les.
+Copy this folder to the new server, and run the following PowerShell command to restore it on your
+new web server:
+PS> Restore-WebConfiguration -Name IISConfigBackup
+Now just copy the content fi les and you’re ready to go. This example works on most simple installations
+and even more complex setups such as SharePoint sites, but you may need to further script
+website confi gurations for an automated process.
+
+
+PS C:\Windows\system32> import-module WebAdministration
+
+PS C:\Windows\system32> cd IIS:
+
+PS IIS:\>get-help
+
+PS IIS:\> get-command -module WebAdministration
+
+PS IIS:\> cd c:
+
+
+PS> Add-WindowsFeature web-server,web-asp-net,web-management-console
+
+Get-Help Disable-WebGlobalModule
+
+-Full Lists cmdlet parameters and their specifi c attributes (e.g., Required)
+-Detailed Lists the specifi c parameters and their descriptions
+-Examples Shows an example of how to execute the cmdlet
+
+Pag 670
+
+Creating a Website and Viewing the Results
+
+When using PowerShell to create your website, you need to take additional precautions. Although
+the following command creates a new website with the corresponding output shown in Figure 18-19,
+it does not create an application pool:
+
+New-Website -Name Site1 -Port 81 -PhysicalPath "C:\inetpub\Site1"
+
+Next, enter a standard DOS-like command cd sites followed by dir. This will display a list of all the
+websites on the server, including the Name, ID, State, Physical Path, and Bindings.
+
+
+Finally, change the directory to the specifi c site — for example cd Site1 and enter the dir command
+to list the contents of the website
+
+Another useful directory to check into is IIS:\AppPools. Navigate to the directory by executing
+cd IIS:\AppPools and then enter dir to list all the currently existing application pools, their state,
+and the applications that are using them. Notice in Figure 18-22 that the website just created uses
+the DefaultAppPool application pool. That means that if you do not include the -ApplicationPool
+attribute, the DefaultAppPool is used by default.
+
+The application pool must already exist when used with the -ApplicationPool attribute. Unlike
+when you create a new website within IIS Manager, where a new application pool is created along
+with the website, this is not currently the case with the New-Website cmdlet. Therefore, you must
+create a specifi c application pool for the website, if you want the website to have its unique application
+pool.
+
+NOTE You should link each website to a unique application pool
+
+Execute the following command to create an application pool called Site1. Then modify the Site1
+website confi guration so that it uses it. Once complete, execute another directory list
+
+New-WebAppPool -Name Site1
+
+
+Set-WebConfigurationProperty
+-PSPath 'MACHINE/WEBROOT/APPHOST'
+-Filter
+"system.applicationHost/sites/site[@name='Site1']/application[@path='/']"
+-Name "applicationPool"
+-Value "Site1"
+
+
+Notice that prior to the Set-WebConfigurationProperty command, the Site1 application was
+associated to the DefaultAppPool application pool; afterward, it is associated to the Site1 application
+pool. That is what is expected.
+
+You may be wondering about which .NET Framework Version, Identity, and Managed Pipeline
+mode has been associated to the new Site1 application pool by default. You can either look at the
+application pools “Advanced Settings…” in IIS Manager, as shown in Figure 18-24, or you can use
+Get-WebConfigurationProperty to select its attributes
+
+Up to now you have created a website and an application pool and linked the two together. Now it
+is time to perform some modifi cations to the website just created.
+
+IIS Operational Activities Using PowerShell
+
+There are many tools that are capable of monitoring the health and status of a website. IIS
+PowerShell provides several cmdlets that can quickly check the status of a website and application
+pool and then take action if required.
+The fi rst few actions an administrator takes when there are reports of a website being unavailable
+are to check the status of the web service and the status of the application pool. To check the status
+of a specifi c website, execute either of the following cmdlets, which render the result shown in
+Figure 18-25:
+Get-WebsiteState -Name Site1
+Get-WebUrl IIS:\Sites\Site1
+
+
+
+
+
+
+
+
+
+cmdlets intalados para IIS
+
+Get-Command –Module WebAdministration
+
+Here are two examples of using cmdlets to get basic information about the default
+website. The first uses an IIS cmdlet from the WebAdministration module, the second using
+the “IIS:” drive
+
+
+PS C:\Users\Administrator> Get-WebSite –Name Default*
+
+Name             ID   State      Physical Path                  Bindings                                             
+----             --   -----      -------------                  --------                                             
+Default Web Site 1    Started    %SystemDrive%\inetpub\wwwroot  http *:80:                                           
+
+
+
+PS C:\Users\Administrator> Get-ChildItem –Path iis:\sites
+
+Name             ID   State      Physical Path                  Bindings                                             
+----             --   -----      -------------                  --------                                             
+Default Web Site 1    Started    %SystemDrive%\inetpub\wwwroot  http *:80:                                           
+
+
+
+PS C:\Users\Administrator> 
+
+To locate the files for the website use Get-ChildItem or the alias Dir.
+
+PS> Get-ChildItem –Path c:\iNetPub\wwwroot
+
+
+-- show-command -online
+
+
+-- Ver alias
+
+Alias
+
+-- Crear / Borrar tu propio alias
+
+New-Alias ver Get-ChildItem
+
+Remove-item alias:ver
+
+
+
+Getting a list of IIS components
+
+PS C:\Users\manuel> Get-WindowsFeature –Name *web*
+
+No esta instalado IIS
+
+Installing IIS
+
+Add-WindowsFeature Web-Server
+
+PS C:\Users\manuel> Add-WindowsFeature Web-Server
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    Yes            SuccessRest... {Common HTTP Features, Default Document, D...
+WARNING: You must restart this server to finish the installation process.
+
+
+Compruebo la instalación
+
+PS C:\Users\manuel> Get-WindowsFeature –Name *web*
+
+Desisnstalo IIs
+
+PS C:\Users\manuel> Remove-WindowsFeature Web-Server
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    Yes            SuccessRest... {Common HTTP Features, Default Document, D...
+WARNING: You must restart this server to finish the removal process.
+
+
+Reinicia!!!
+
+Testing a default installation
+
+PS C:\Users\manuel> Start iexplore http://localhost/
+
+OK!!
+
+viewing cmdlets for IIS
+
+PS C:\Users\manuel> Get-Command –Module WebAdministration
+
+Get-Command –noun web*
+
+Get-Help *web*
+
+
+Viewing a website
+
+PS C:\Users\manuel> Get-WebSite –Name Default*
+
+Name             ID   State      Physical Path                  Bindings                             
+----             --   -----      -------------                  --------                             
+Default Web Site 1    Started    %SystemDrive%\inetpub\wwwroot  http *:80:                           
+
+
+PS C:\Users\manuel> Get-Childitem –Path iis:\sites
+
+Name             ID   State      Physical Path                  Bindings                             
+----             --   -----      -------------                  --------                             
+Default Web Site 1    Started    %SystemDrive%\inetpub\wwwroot  http *:80:                           
+
+
+PS C:\Users\manuel> Get-Childitem –Path c:\inetPub\wwwroot
+
+
+    Directory: C:\inetPub\wwwroot
+
+
+Mode                LastWriteTime     Length Name                                                    
+----                -------------     ------ ----                                                    
+-a---        10/21/2013   7:39 AM      52264 bkg-gry.jpg                                             
+-a---        10/21/2013   7:39 AM      53611 iis-8.png                                               
+-a---        10/21/2013   7:39 AM       1398 iisstart.htm                                            
+-a---        10/21/2013   7:39 AM       2103 msweb-brand.png                                         
+-a---        10/21/2013   7:39 AM       7829 ws8-brand.png                                           
+
+
+Navigating to application pools
+
+PS C:\Users\manuel> Set-location IIS:\appPools
+
+PS IIS:\appPools> Get-Childitem
+
+Name                     State        Applications                                
+----                     -----        ------------                                
+DefaultAppPool           Started      Default Web Site                            
+
+
+
+Getting Information about application pools
+
+PS IIS:\appPools> Get-Item –path IIS:\appPools\defaultAppPool
+
+Name                     State        Applications                                
+----                     -----        ------------                                
+DefaultAppPool           Started      Default Web Site                            
+
+
+
+PS IIS:\appPools> Get-Item –Path IIS:\appPools\defaultAppPool | Format-List –Property *
+
+
+
+Creating application pools
+
+PS IIS:\appPools> New-WebAppPool –Name BikeTestPool
+
+Name                     State        Applications                                
+----                     -----        ------------                                
+BikeTestPool             Started                                                  
+
+
+Changing a website to a new application pool
+
+Set-ItemProperty –Path ‘IIS:\Sites\Default Web Site’ –Name ApplicationPool –Value BikeTestPool
+
+
+
+Getting a list of worker process
+
+Get-WmiObject Win32_Process
+
+PS IIS:\> Get-WmiObject Win32_Process –filter 'name="w3wp.exe"'
+
+
+Restarting an application pool
+
+
+PS IIS:\> Restart-WebAppPool –Name BikeTestPool
+
+PS IIS:\>
+
+
+Setting application pool recycling settings (Recycle time)
+
+Setting application pool recycling settings (Recycle time)
+
+
+
+View events for application pools
+
+PS IIS:\> Get-Eventlog –LogName System –Source WAS
+
+   Index Time          EntryType   Source                 InstanceID Message                                       
+   ----- ----          ---------   ------                 ---------- -------                                       
+    3954 Oct 21 08:20  Information WAS                    1073747010 A worker process with process id of '2208' ...
+
+
+
+Getting the application pool identity
+
+
+
+
+Creating websites
+
+PS IIS:\> New-Item –ItemType Directory –Path c:\PoshTestSite
+
+
+    Directory: C:\
+
+
+Mode                LastWriteTime     Length Name                                                                  
+----                -------------     ------ ----                                                                  
+d----        10/21/2013   8:30 AM            PoshTestSite                                                          
+
+
+
+PS IIS:\> New-WebAppPool –Name PoshTestSitePool
+
+Name                     State        Applications                                
+----                     -----        ------------                                
+PoshTestSitePool         Started                                                  
+
+
+
+PS IIS:\> New-Website –Name PoshTestSite –Hostheader Posh.Widget.Com –PhysicalPath c:\PoshTestSite –ApplicationPool PoshTestSitePool
+
+Name             ID   State      Physical Path                  Bindings                                           
+----             --   -----      -------------                  --------                                           
+PoshTestSite     1377 Started    c:\PoshTestSite                http *:80:Posh.Widget.Com                          
+                 4831                                                                                              
+                 69                                                                                                
+
+
+Changing directory browsing
+
+PS IIS:\> Get-WebConfigurationProperty -filter system.webserver/directorybrowse –PSPath iis:\ -Name enabled
+
+
+ItemXPath                   : /system.webServer/directoryBrowse
+IsInheritedFromDefaultValue : False
+IsProtected                 : False
+Name                        : enabled
+TypeName                    : System.Boolean
+Schema                      : Microsoft.IIs.PowerShell.Framework.ConfigurationAttributeSchema
+Value                       : False
+IsExtended                  : False
+
+
+Adding ASP and ASP.Net
+
+PS IIS:\> Add-WindowsFeature –Name Web-ASP
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {Application Development, ASP, ISAPI Exten...
+
+
+
+PS IIS:\> Add-WindowsFeature –Name Web-ASP-Net
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {ASP.NET 4.5, .NET Framework 3.5 (includes...
+
+
+
+Adding CGI
+
+PS IIS:\> Add-WindowsFeature –Name Web-CGI
+
+Success Restart Needed Exit Code      Feature Result                               
+------- -------------- ---------      --------------                               
+True    No             Success        {CGI}                                        
+
+
+To list all log files for every website
+
+PS IIS:\> Get-childitem -Path C:\inetpub\logs -filter *.log –recurse
+
+
+    Directory: C:\inetpub\logs\LogFiles\W3SVC1
+
+
+Mode                LastWriteTime     Length Name                                                                  
+----                -------------     ------ ----                                                                  
+-a---        10/21/2013   8:15 AM       1147 u_ex131021.log                                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SNAP-IN
+_______________________________________
+SQL Server
+
+PS C:\> Import-Module SQLPS
+WARNING: The names of some imported commands from the module 'SQLPS' include unapproved verbs that might make them les
+s discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the Verbose param
+eter. For a list of approved verbs, type Get-Verb.
+
+PS SQLSERVER:\> psdrive
+
+cd sqlserver:
+
+PS SQLSERVER:\> dir
+
+Name            Root                           Description                             
+----            ----                           -----------                             
+SQL             SQLSERVER:\SQL                 SQL Server Database Engine              
+SQLPolicy       SQLSERVER:\SQLPolicy           SQL Server Policy Management            
+SQLRegistration SQLSERVER:\SQLRegistration     SQL Server Registrations                
+DataCollection  SQLSERVER:\DataCollection      SQL Server Data Collection              
+XEvent          SQLSERVER:\XEvent              SQL Server Extended Events              
+Utility         SQLSERVER:\Utility             SQL Server Utility                      
+DAC             SQLSERVER:\DAC                 SQL Server Data-Tier Application        
+                                               Component                               
+SSIS            SQLSERVER:\SSIS                SQL Server Integration Services         
+SQLAS           SQLSERVER:\SQLAS               SQL Server Analysis Services            
+
+Nota:
+
+Servicios Ejecutandose
+
+Services.msc  desde Start
+
+Datos para recopilar
+
+Domain QUERYWORKS
+Machine name KERRIGAN W2012SQL2012
+Instances KERRIGAN or (local) or localhost
+SQL01
+Databases AdventureWorks2008R2
+
+
+
+dir
+cd default
+dir
+
+
+Desde SMS PowerShell
+
+PS SQLSERVER:\SQL\W2012SQL2012\DEFAULT\Databases\AdventureWorks2012>
+
+
+
+Datos Servidor Bases de datos en Windows Azure
+
+NOMBRE DEL SERVIDOR
+b0eqvkjw27.database.windows.net
+SERVIDOR
+b0eqvkjw27
+ESTADO
+En línea
+INTERCALACIÓN
+SQL_Latin1_General_CP1_CI_AS
+EDICIÓN
+Web
+ADMINISTRAR DIRECCIÓN URL
+https://b0eqvkjw27.database.windows.net/#$database=Prueba
+
+
+AdventureWorks2012 en W2012 a BD Prueba en Windows Azure
+
+
+
+SCRIPT
+
+Show Script Pane
+
+Escribir 
+
+Get-Process *SQL*
+
+Guardar como Script 
+
+Recuperar y Ejecutar
+
+
+
+PS C:\> cd "C:\Curso 2013 - 2014"
+
+PS C:\Curso 2013 - 2014> .\Script_Obtener_Procesos_SQL.ps1
+
+Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id ProcessName                                                
+-------  ------    -----      ----- -----   ------     -- -----------                                                
+    605      70   488208     418420   295    69.45   2188 sqlservr                                                   
+     83       8     1340       5288    38     0.03   1684 sqlwriter                                                  
+
+
+
+Crear Script Script_Primero_SQLServer.ps1
+---------------------------
+#import SQL Server module
+Import-Module SQLPS -DisableNameChecking
+
+#replace KERRIGAN with your instance name
+$instanceName = "W2012SQL2012"  
+$managedComputer = New-Object 'Microsoft.SqlServer.Management.Smo.Wmi.ManagedComputer' $instanceName
+
+#list services        
+$managedComputer.Services | 
+Select Name, ServiceAccount, DisplayName, ServiceState | 
+Format-Table -AutoSize
+----------------------------------
+
+
+
+PS C:\Users\manuel> C:\Curso 2013 - 2014\Script_Primero_SQLServer.ps1
+
+Name                   ServiceAccount                    DisplayName                                        ServiceSt
+                                                                                                                  ate
+----                   --------------                    -----------                                        ---------
+MsDtsServer110         NT Service\MsDtsServer110         SQL Server Integration Services 11.0                 Running
+MSSQLFDLauncher        NT Service\MSSQLFDLauncher        SQL Full-text Filter Daemon Launcher (MSSQLSERVER)   Running
+MSSQLSERVER            NT Service\MSSQLSERVER            SQL Server (MSSQLSERVER)                             Running
+MSSQLServerOLAPService NT Service\MSSQLServerOLAPService SQL Server Analysis Services (MSSQLSERVER)           Running
+ReportServer           NT Service\ReportServer           SQL Server Reporting Services (MSSQLSERVER)          Running
+SQLBrowser             NT AUTHORITY\LOCALSERVICE         SQL Server Browser                                   Stopped
+SQLSERVERAGENT         NT Service\SQLSERVERAGENT         SQL Server Agent (MSSQLSERVER)                       Stopped
+
+Ejemplo
+PS SQLSERVER:\> C:\Curso 2013 - 2014\Script_Obtener_Logins_SQLServer.ps1
+
+-------------------------
+
+#import SQL Server module
+Import-Module SQLPS -DisableNameChecking
+
+#replace this with your instance name
+$instanceName = "W2012SQL2012"
+$server = New-Object -TypeName Microsoft.SqlServer.Management.Smo.Server -ArgumentList $instanceName
+
+#display login info
+#these are two different ways of displaying login info
+$server.Logins
+$server.EnumWindowsUserInfo()
+
+
+#List users, and database mappings
+$server.Databases |
+ForEach-Object {
+   #capture database object
+   $database = $_
+
+   #capture users in this database
+   $users = $_.Users
+
+   $users | 
+   Where-Object { -not($_.IsSystemObject)} |
+   Select @{N="Login";E={$_.Login}},
+   @{N="User";E={$_.Name}},
+   @{N="DatabaseName";E={$database.Name}},
+   @{N="LoginType";E={$_.LoginType}},
+   @{N="UserType";E={$_.UserType}}
+} |
+Format-Table -AutoSize
+
+
+---------------------------------------------
+
+PS SQLSERVER:\> C:\Curso 2013 - 2014\Script_Obtener_Logins_SQLServer.ps1
+
+Name                                          Login Type    Created               
+----                                          ----------    -------               
+##MS_PolicyEventProcessingLogin##             SqlLogin      8/1/2013 1:58 PM      
+##MS_PolicyTsqlExecutionLogin##               SqlLogin      2/10/2012 9:07 PM     
+NT Service\MSSQLSERVER                        WindowsUser   8/1/2013 1:57 PM      
+NT SERVICE\SQLSERVERAGENT                     WindowsUser   8/1/2013 1:57 PM      
+NT SERVICE\SQLWriter                          WindowsUser   8/1/2013 1:57 PM      
+NT SERVICE\Winmgmt                            WindowsUser   8/1/2013 1:57 PM      
+sa                                            SqlLogin      4/8/2003 9:10 AM      
+W2012SQL2012\manuel                           WindowsUser   8/19/2013 5:47 PM     
+
+account name      : NT Service\MSSQLSERVER
+type              : user
+privilege         : admin
+mapped login name : NT Service\MSSQLSERVER
+permission path   : 
+
+
+account name      : NT SERVICE\SQLSERVERAGENT
+type              : user
+privilege         : admin
+mapped login name : NT SERVICE\SQLSERVERAGENT
+permission path   : 
+
+
+account name      : NT SERVICE\SQLWriter
+type              : user
+privilege         : admin
+mapped login name : NT SERVICE\SQLWriter
+permission path   : 
+............................
+............................
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
