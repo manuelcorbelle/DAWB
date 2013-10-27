@@ -1,0 +1,24 @@
+Prueba Modificación desde Remote to Local sobre Links de SQL Server
+
+
+http://www.examcollection.com/70-462.html
+http://www.katieandemil.com/katie-and-emil-tutorial-to-70-462-administering-microsoft-sql-server-2012-databases
+http://www.katieandemil.com/sql-tutorial-for-beginners-with-examples-and-sql-tutorial-pdf
+
+http://msftdbprodsamples.codeplex.com/releases/view/55330
+
+http://social.technet.microsoft.com/wiki/contents/articles/3735.sql-server-samples-readme.aspx
+
+AZure
+
+Servidor: b0eqvkjw27.database.windows.net,1433
+
+https://b0eqvkjw27.database.windows.net/?langid=es-es#$database=Prueba
+
+http://www.sqlservercentral.com/articles/Adventureworks/99281/
+
+
+http://sqlblog.com/blogs/jamie_thomson/archive/2012/11/30/olympics-data-available-for-all-on-windows-azure-sql-database.aspx
+
+
+http://www.sqlservercentral.com/articles/Adventureworks/99291/
