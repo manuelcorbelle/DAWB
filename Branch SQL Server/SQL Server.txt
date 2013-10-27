@@ -1,3 +1,6 @@
+Prueba Modificación desde Remote to Local
+
+
 http://www.examcollection.com/70-462.html
 http://www.katieandemil.com/katie-and-emil-tutorial-to-70-462-administering-microsoft-sql-server-2012-databases
 http://www.katieandemil.com/sql-tutorial-for-beginners-with-examples-and-sql-tutorial-pdf
