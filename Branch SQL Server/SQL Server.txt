@@ -1,4 +1,4 @@
-Prueba Modificación desde Remote to Local
+Prueba Modificación desde Remote to Local sobre Links de SQL Server
 
 
 http://www.examcollection.com/70-462.html
